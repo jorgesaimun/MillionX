@@ -13,11 +13,12 @@ class FarmerResultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Speech bubble
+        // Speech bubble at top
         _buildSpeechBubble(),
-        const SizedBox(height: 8),
-        // Farmer character
+        // Farmer character at bottom with minimal spacing
         _buildFarmerCharacter(),
       ],
     );
@@ -47,7 +48,7 @@ class FarmerResultWidget extends StatelessWidget {
           //   padding: EdgeInsets.only(top: 2),
           //   child: Icon(Icons.lightbulb, color: Colors.amber, size: 24),
           // ),
-        //  const SizedBox(width: 10),
+          //  const SizedBox(width: 10),
           // Text message
           Expanded(
             child: Text(
@@ -76,7 +77,7 @@ class FarmerResultWidget extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) {
         return Container(
           width: 150,
-          height: 130,
+          height: 140,
           decoration: BoxDecoration(
             color: const Color(0xFF8D6E63),
             borderRadius: BorderRadius.circular(8),

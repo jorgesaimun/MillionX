@@ -68,18 +68,16 @@ class _ResultScreenState extends State<ResultScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-            child: Row(
-              children: [
-                // Left column: Calendar and Farmer
-                _buildLeftColumn(),
-                const SizedBox(width: 20),
-                // Right column: Results panel and Next button
-                _buildRightColumn(),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          child: Row(
+            children: [
+              // Left column: Calendar and Farmer
+              _buildLeftColumn(),
+              const SizedBox(width: 20),
+              // Right column: Results panel and Next button
+              _buildRightColumn(),
+            ],
           ),
         ),
       ),
@@ -91,19 +89,16 @@ class _ResultScreenState extends State<ResultScreen> {
       flex: 1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Top Left: Calendar widget
           CalendarWidget(
             currentMonth: widget.currentMonth,
             monthNumber: widget.monthNumber,
           ),
-          // Spacer to push farmer to bottom
-          const Expanded(child: SizedBox()),
-          // Left Bottom: Farmer with speech bubble positioned at bottom left
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: FarmerResultWidget(message: _adviceMessage),
-          ),
+          Spacer(),
+          // Left Bottom: Farmer with speech bubble pushed to bottom
+          FarmerResultWidget(message: _adviceMessage),
         ],
       ),
     );
