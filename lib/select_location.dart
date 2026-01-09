@@ -72,43 +72,46 @@ class _SelectLocationScreenState extends State<SelectLocationScreen>
             fit: BoxFit.cover,
           ),
         ),
-        child: Stack(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: EarthGlobeSection(
-                    globeController: _globeController,
-                    onNextPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => CropSelectionScreen(
-                                detectedLocation: _locationName ?? 'CHITTAGONG',
-                              ),
-                        ),
-                      );
-                    },
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: EarthGlobeSection(
+                      globeController: _globeController,
+                      onNextPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => CropSelectionScreen(
+                                  detectedLocation:
+                                      _locationName ?? 'CHITTAGONG',
+                                ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: CustomLocationDataSection(
-                    locationName: _locationName,
-                    dataController: _dataController,
-                    onToggleDropdown: () {
-                      setState(() {
-                        _showDropdown = !_showDropdown;
-                      });
-                    },
+                  Expanded(
+                    flex: 2,
+                    child: CustomLocationDataSection(
+                      locationName: _locationName,
+                      dataController: _dataController,
+                      onToggleDropdown: () {
+                        setState(() {
+                          _showDropdown = !_showDropdown;
+                        });
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-            if (_showDropdown) _buildDropdown(),
-          ],
+                ],
+              ),
+              if (_showDropdown) _buildDropdown(),
+            ],
+          ),
         ),
       ),
     );
@@ -271,7 +274,7 @@ class CustomLocationDataSection extends StatelessWidget {
           const Text(
             'Your Location is:',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Color(0xFF8B4513),
               fontFamily: 'monospace',

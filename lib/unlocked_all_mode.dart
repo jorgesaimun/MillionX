@@ -28,29 +28,27 @@ class _UnlockedAllModeState extends State<UnlockedAllMode> {
             fit: BoxFit.cover,
           ),
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // Location Header
-              _buildLocationHeader(),
+        child: Column(
+          children: [
+            // Location Header
+            _buildLocationHeader(),
 
-              // Main Content
-              Expanded(
-                child: Stack(
-                  children: [
-                    // Left Sidebar
-                    _buildLeftSidebar(),
+            // Main Content
+            Expanded(
+              child: Stack(
+                children: [
+                  // Left Sidebar
+                  _buildLeftSidebar(),
 
-                    // Center content with mode selection and next button
-                    _buildCenterContent(),
+                  // Center content with mode selection and next button
+                  _buildCenterContent(),
 
-                    // Character and Speech Bubble (Right side)
-                    _buildCharacterSection(),
-                  ],
-                ),
+                  // Character and Speech Bubble (Right side)
+                  _buildCharacterSection(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -153,39 +151,49 @@ class _UnlockedAllModeState extends State<UnlockedAllMode> {
     return Positioned(
       left: 20,
       top: 20,
-      child: Column(
-        children: [
-          _buildSidebarButton('assets/images/profile_icon.png', 'Profile', () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfileScreen()),
-            );
-          }),
-          const SizedBox(height: 10),
-          _buildSidebarButton(
-            'assets/images/settings_icon.png',
-            'Settings',
-            () {
+      child: SafeArea(
+        child: Column(
+          children: [
+            _buildSidebarButton(
+              'assets/images/profile_icon.png',
+              'Profile',
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 10),
+            _buildSidebarButton(
+              'assets/images/settings_icon.png',
+              'Settings',
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 10),
+            // add a camera button here
+            _buildSidebarButton('assets/images/camera_icon.png', 'Camera', () {
+              // Camera functionality to be implemented
+            }),
+
+            const SizedBox(height: 10),
+            _buildSidebarButton('assets/images/questions_icon.png', 'Help', () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+                MaterialPageRoute(builder: (context) => const HelpScreen()),
               );
-            },
-          ),
-          const SizedBox(height: 10),
-          // add a camera button here
-          _buildSidebarButton('assets/images/camera_icon.png', 'Camera', () {
-            // Camera functionality to be implemented
-          }),
-
-          const SizedBox(height: 10),
-          _buildSidebarButton('assets/images/questions_icon.png', 'Help', () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HelpScreen()),
-            );
-          }),
-        ],
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -332,8 +340,10 @@ class _UnlockedAllModeState extends State<UnlockedAllMode> {
   }
 
   Widget _buildCharacterSection() {
+
+    final leftPadding = MediaQuery.of(context).padding.left;
     return Positioned(
-      right: 0, // Remove right padding
+      right: leftPadding, // Added right padding
       bottom: 0, // Position at bottom
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -351,7 +361,7 @@ class _UnlockedAllModeState extends State<UnlockedAllMode> {
             ),
             child: Text(
               'Congrats on finishing your location! In Creative Mode you can play as anywhere you want',
-              style: GoogleFonts.vt323(fontSize: 12, color: Colors.black),
+              style: GoogleFonts.vt323(fontSize: 16, color: Colors.black),
               textAlign: TextAlign.center,
             ),
           ),

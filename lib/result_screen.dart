@@ -97,21 +97,26 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _buildLeftColumn() {
+    final topPadding = MediaQuery.of(context).padding.top;
+    final leftPadding = MediaQuery.of(context).padding.left;
     return Expanded(
       flex: 1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Top Left: Calendar widget
-          CalendarWidget(
-            currentMonth: widget.currentMonth,
-            monthNumber: widget.monthNumber,
-          ),
-          Spacer(),
-          // Left Bottom: Farmer with speech bubble pushed to bottom
-          FarmerResultWidget(message: _adviceMessage),
-        ],
+      child: Padding(
+        padding: EdgeInsets.only(top: topPadding, left: leftPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Top Left: Calendar widget
+            CalendarWidget(
+              currentMonth: widget.currentMonth,
+              monthNumber: widget.monthNumber,
+            ),
+            Spacer(),
+            // Left Bottom: Farmer with speech bubble pushed to bottom
+            FarmerResultWidget(message: _adviceMessage),
+          ],
+        ),
       ),
     );
   }
