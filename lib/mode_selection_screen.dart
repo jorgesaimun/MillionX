@@ -24,33 +24,34 @@ class _ModeSelectionScreenState extends State<ModeSelectionScreen> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background_img.png'),
-            fit: BoxFit.cover,
+        image: AssetImage('assets/images/background_img.png'),
+        fit: BoxFit.cover,
           ),
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // Location Header
-              _buildLocationHeader(),
-
-              // Main Content
-              Expanded(
-                child: Stack(
-                  children: [
-                    // Left Sidebar
-                    _buildLeftSidebar(),
-
-                    // Center content with mode selection and next button
-                    _buildCenterContent(),
-
-                    // Character and Speech Bubble (Right side)
-                    _buildCharacterSection(),
-                  ],
-                ),
-              ),
-            ],
+        child: Column(
+          children: [
+        // Location Header
+        _buildLocationHeader(),
+        
+        // Main Content
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Stack(
+          children: [
+            // Left Sidebar
+            _buildLeftSidebar(),
+        
+            // Center content with mode selection and next button
+            _buildCenterContent(),
+        
+            // Character and Speech Bubble (Right side)
+            _buildCharacterSection(),
+          ],
+            ),
           ),
+        ),
+          ],
         ),
       ),
     );
@@ -317,7 +318,7 @@ class _ModeSelectionScreenState extends State<ModeSelectionScreen> {
         children: [
           // Speech Bubble
           Container(
-            width: 180,
+            width: 200,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -326,11 +327,11 @@ class _ModeSelectionScreenState extends State<ModeSelectionScreen> {
             ),
             child: Text(
               'In Career Mode you can only play with your own area, in Creative Mode, you can play on any',
-              style: GoogleFonts.vt323(fontSize: 12, color: Colors.black),
+              style: GoogleFonts.vt323(fontSize: 16, color: Colors.black),
               textAlign: TextAlign.center,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 10),
           // Character - positioned at bottom right with no padding
           Image.asset(
             'assets/images/farmer_right.png',

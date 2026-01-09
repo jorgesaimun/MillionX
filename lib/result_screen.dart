@@ -81,7 +81,7 @@ class _ResultScreenState extends State<ResultScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+          padding: const EdgeInsets.only(top: 30.0, left: 40.0, right: 30.0),
           child: Row(
             children: [
               // Left column: Calendar and Farmer
