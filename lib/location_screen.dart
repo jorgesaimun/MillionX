@@ -117,6 +117,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   /// Convert position coordinates to readable location name
   Future<String> _getLocationName(Position position) async {
     try {
+      // Force English locale for geocoding
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
@@ -132,6 +133,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         // If we have a division, use it; otherwise use city
         String location = division ?? city ?? 'Unknown Location';
 
+        // Convert Bangla location names to English
+        location = _convertToEnglishLocation(location);
+
         print(
           'Location detected: $location (Division: $division, City: $city)',
         );
@@ -142,6 +146,32 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       print('Geocoding error: $e');
     }
     return 'Location Detection Failed';
+  }
+
+  /// Convert Bangla location names to English equivalents
+  String _convertToEnglishLocation(String location) {
+    // Mapping of common Bangladesh divisions and cities from Bangla to English
+    final Map<String, String> locationMap = {
+      'ঢাকা': 'Dhaka',
+      'ঢাকা বিভাগ': 'Dhaka',
+      'চট্টগ্রাম': 'Chittagong',
+      'চট্টগ্রাম বিভাগ': 'Chittagong',
+      'রাজশাহী': 'Rajshahi',
+      'রাজশাহী বিভাগ': 'Rajshahi',
+      'খুলনা': 'Khulna',
+      'খুলনা বিভাগ': 'Khulna',
+      'বরিশাল': 'Barisal',
+      'বরিশাল বিভাগ': 'Barisal',
+      'সিলেট': 'Sylhet',
+      'সিলেট বিভাগ': 'Sylhet',
+      'রংপুর': 'Rangpur',
+      'রংপুর বিভাগ': 'Rangpur',
+      'ময়মনসিংহ': 'Mymensingh',
+      'ময়মনসিংহ বিভাগ': 'Mymensingh',
+    };
+
+    // Check if location exists in the map and return English name
+    return locationMap[location] ?? location;
   }
 
   /// Handle location error by setting fallback state
