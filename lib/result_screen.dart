@@ -6,6 +6,7 @@ import 'widgets/result_widgets/farmer_result_widget.dart';
 import 'widgets/result_widgets/results_panel_widget.dart';
 import 'final_result_screen.dart';
 import 'services/advice_service.dart';
+import 'services/results_service.dart';
 
 class ResultScreen extends StatefulWidget {
   final Crop selectedCrop;
@@ -38,15 +39,15 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  // Result data
-  String _whatHappened = 'Successfully ripe';
-  String _why = 'Perfect Irrigation';
-  int _starRating = 2; // 2 out of 3 stars
   late final String _adviceMessage;
+  late final int _starRating;
+  late final String _whatHappened;
+  late final String _why;
 
   @override
   void initState() {
     super.initState();
+    // Compute dynamic advice
     _adviceMessage = AdviceService.getDetailedAdvice(
       irrigation: widget.irrigationLevel,
       fertilizer: widget.fertilizerLevel,
@@ -54,6 +55,17 @@ class _ResultScreenState extends State<ResultScreen> {
       currentStage: widget.currentStage,
       totalStages: widget.totalStages,
     );
+
+    // Compute dynamic results
+    final results = ResultsService.evaluatePerformance(
+      irrigation: widget.irrigationLevel,
+      fertilizer: widget.fertilizerLevel,
+      pesticide: widget.pesticideLevel,
+      currentStage: widget.currentStage,
+    );
+    _starRating = results.starRating;
+    _whatHappened = results.whatHappened;
+    _why = results.why;
   }
 
   @override
