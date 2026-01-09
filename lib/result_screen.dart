@@ -5,6 +5,7 @@ import 'widgets/cultivation_widgets/calendar_widget.dart';
 import 'widgets/result_widgets/farmer_result_widget.dart';
 import 'widgets/result_widgets/results_panel_widget.dart';
 import 'final_result_screen.dart';
+import 'services/advice_service.dart';
 
 class ResultScreen extends StatefulWidget {
   final Crop selectedCrop;
@@ -41,6 +42,19 @@ class _ResultScreenState extends State<ResultScreen> {
   String _whatHappened = 'Successfully ripe';
   String _why = 'Perfect Irrigation';
   int _starRating = 2; // 2 out of 3 stars
+  late final String _adviceMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _adviceMessage = AdviceService.getDetailedAdvice(
+      irrigation: widget.irrigationLevel,
+      fertilizer: widget.fertilizerLevel,
+      pesticide: widget.pesticideLevel,
+      currentStage: widget.currentStage,
+      totalStages: widget.totalStages,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +100,9 @@ class _ResultScreenState extends State<ResultScreen> {
           // Spacer to push farmer to bottom
           const Expanded(child: SizedBox()),
           // Left Bottom: Farmer with speech bubble positioned at bottom left
-          const Align(
+          Align(
             alignment: Alignment.bottomLeft,
-            child: FarmerResultWidget(),
+            child: FarmerResultWidget(message: _adviceMessage),
           ),
         ],
       ),

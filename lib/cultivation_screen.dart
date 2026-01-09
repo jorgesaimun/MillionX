@@ -678,7 +678,14 @@ class _CultivationScreenState extends State<CultivationScreen> {
             // Spacer to push farmer to bottom
             const Expanded(child: SizedBox()),
             // Farmer section - positioned at bottom with no margin
-            FarmerSectionWidget(cropName: currentCrop.name),
+            FarmerSectionWidget(
+              cropName: currentCrop.name,
+              irrigationLevel: _irrigationLevel,
+              fertilizerLevel: _fertilizerLevel,
+              pesticideLevel: _pesticideLevel,
+              currentStage: _currentStage,
+              totalStages: _totalStages,
+            ),
           ],
         ),
       ),

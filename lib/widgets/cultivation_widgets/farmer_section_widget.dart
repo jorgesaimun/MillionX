@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../services/advice_service.dart';
 
 class FarmerSectionWidget extends StatelessWidget {
   final String cropName;
+  final double irrigationLevel;
+  final double fertilizerLevel;
+  final double pesticideLevel;
+  final int currentStage;
+  final int totalStages;
 
-  const FarmerSectionWidget({super.key, required this.cropName});
+  const FarmerSectionWidget({
+    super.key,
+    required this.cropName,
+    required this.irrigationLevel,
+    required this.fertilizerLevel,
+    required this.pesticideLevel,
+    required this.currentStage,
+    required this.totalStages,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +35,46 @@ class FarmerSectionWidget extends StatelessWidget {
   }
 
   Widget _buildSpeechBubble() {
+    // Get detailed advice for all three resources
+    final detailedAdvice = AdviceService.getDetailedAdvice(
+      irrigation: irrigationLevel,
+      fertilizer: fertilizerLevel,
+      pesticide: pesticideLevel,
+      currentStage: currentStage,
+      totalStages: totalStages,
+    );
+
+    // Show welcome message on stage 1
+    final message =
+        currentStage == 1
+            ? 'Welcome to ${cropName.toUpperCase()}\n\n$detailedAdvice'
+            : detailedAdvice;
+
     return Container(
-      width: 220,
-      padding: const EdgeInsets.all(4),
+      width: 280, // Increased from 220
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.black, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 4,
+            offset: const Offset(2, 2),
+          ),
+        ],
       ),
       child: Text(
-        'Welcome to Space2Soil, now here is your ${cropName.toLowerCase()} seed. Choose your action carefully',
+        message,
         style: GoogleFonts.vt323(
-          fontSize: 12,
+          fontSize: 16, // Slightly smaller to fit more text
           fontWeight: FontWeight.bold,
           color: Colors.black,
+          height: 1.3, // Better line spacing
         ),
+        maxLines: 8, // Increased from 3
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
