@@ -50,36 +50,31 @@ class FarmerSectionWidget extends StatelessWidget {
             ? 'Welcome to ${cropName.toUpperCase()}\n\n$detailedAdvice'
             : detailedAdvice;
 
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 30,
-      ), // keep inside safe area on the left
-      child: Container(
-        width: 280, // Increased from 220
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.black, width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 4,
-              offset: const Offset(2, 2),
-            ),
-          ],
-        ),
-        child: Text(
-          message,
-          style: GoogleFonts.vt323(
-            fontSize: 16, // Slightly smaller to fit more text
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            height: 1.3, // Better line spacing
+    return Container(
+      width: 280, // Increased from 220
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.black, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 4,
+            offset: const Offset(2, 2),
           ),
-          maxLines: 8, // Increased from 3
-          overflow: TextOverflow.ellipsis,
+        ],
+      ),
+      child: Text(
+        message,
+        style: GoogleFonts.vt323(
+          fontSize: 16, // Slightly smaller to fit more text
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          height: 1.3, // Better line spacing
         ),
+        maxLines: 8, // Increased from 3
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

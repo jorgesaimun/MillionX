@@ -634,10 +634,10 @@ class _CultivationScreenState extends State<CultivationScreen> {
                         children: [
                           // Left column: Calendar, Speech bubble, Farmer
                           _buildLeftColumn(constraints),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 4),
                           // Center column: Seed image, Action buttons
                           _buildCenterColumn(constraints),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 4),
                           // Right column: Environmental data, Done button
                           _buildRightColumn(constraints),
                         ],
@@ -650,43 +650,51 @@ class _CultivationScreenState extends State<CultivationScreen> {
   }
 
   Widget _buildLeftColumn(BoxConstraints constraints) {
+    final topPadding = MediaQuery.of(context).padding.top;
+    final leftPadding = MediaQuery.of(context).padding.left;
+
     return Expanded(
       flex: 3,
-      child: SizedBox(
-        height: constraints.maxHeight, // Use full height
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Top widgets row: Calendar and Coin
-            SizedBox(
-              height: constraints.maxHeight * 0.25, // 25% of screen height
-              child: Row(
-                children: [
-                  // Calendar widget
-                  Expanded(
-                    child: CalendarWidget(
-                      currentMonth: _currentMonth,
-                      monthNumber: _monthNumber,
+      child: Padding(
+        padding: EdgeInsets.only(top: topPadding, left: leftPadding),
+        child: SizedBox(
+          height: constraints.maxHeight - topPadding, // Adjust for top padding
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Top widgets row: Calendar and Coin
+              SizedBox(
+                // height:
+                //     (constraints.maxHeight - topPadding) *
+                //     0.25, // 25% of available height
+                child: Row(
+                  children: [
+                    // Calendar widget
+                    Expanded(
+                      child: CalendarWidget(
+                        currentMonth: _currentMonth,
+                        monthNumber: _monthNumber,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  // Coin widget
-                  CoinWidget(coinCount: _currentCoins),
-                ],
+                    const SizedBox(width: 8),
+                    // Coin widget
+                    CoinWidget(coinCount: _currentCoins),
+                  ],
+                ),
               ),
-            ),
-            // Spacer to push farmer to bottom
-            const Expanded(child: SizedBox()),
-            // Farmer section - positioned at bottom with no margin
-            FarmerSectionWidget(
-              cropName: currentCrop.name,
-              irrigationLevel: _irrigationLevel,
-              fertilizerLevel: _fertilizerLevel,
-              pesticideLevel: _pesticideLevel,
-              currentStage: _currentStage,
-              totalStages: _totalStages,
-            ),
-          ],
+              // Spacer to push farmer to bottom
+              const Expanded(child: SizedBox()),
+              // Farmer section - positioned at bottom with no margin
+              FarmerSectionWidget(
+                cropName: currentCrop.name,
+                irrigationLevel: _irrigationLevel,
+                fertilizerLevel: _fertilizerLevel,
+                pesticideLevel: _pesticideLevel,
+                currentStage: _currentStage,
+                totalStages: _totalStages,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -750,39 +758,42 @@ class _CultivationScreenState extends State<CultivationScreen> {
   Widget _buildRightColumn(BoxConstraints constraints) {
     return Expanded(
       flex: 2,
-      child: SafeArea(
-        child: SizedBox(
-          height: constraints.maxHeight - 24, // Account for padding
-          child: Column(
-            children: [
-              // Environmental data - takes most space
-              Expanded(
-                flex: 3,
-                child: EnvironmentalDataWidget(
-                  stock: _stock,
-                  smap: _smap,
-                  ndvi: _ndvi,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: SafeArea(
+          child: SizedBox(
+            height: constraints.maxHeight - 24, // Account for padding
+            child: Column(
+              children: [
+                // Environmental data - takes most space
+                Expanded(
+                  flex: 3,
+                  child: EnvironmentalDataWidget(
+                    stock: _stock,
+                    smap: _smap,
+                    ndvi: _ndvi,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              // Done button - fixed height
-              SizedBox(
-                height: constraints.maxHeight * 0.15, // 15% of screen height
-                child: DoneButtonWidget(
-                  cropName: currentCrop.name,
-                  selectedCrop: currentCrop,
-                  irrigationLevel: _irrigationLevel,
-                  fertilizerLevel: _fertilizerLevel,
-                  pesticideLevel: _pesticideLevel,
-                  currentStage: _currentStage,
-                  totalStages: _totalStages,
-                  onStageAdvance: _advanceStage,
-                  currentMonth: _currentMonth,
-                  monthNumber: _monthNumber,
-                  division: widget.division,
+                const SizedBox(height: 10),
+                // Done button - fixed height
+                SizedBox(
+                  height: constraints.maxHeight * 0.15, // 15% of screen height
+                  child: DoneButtonWidget(
+                    cropName: currentCrop.name,
+                    selectedCrop: currentCrop,
+                    irrigationLevel: _irrigationLevel,
+                    fertilizerLevel: _fertilizerLevel,
+                    pesticideLevel: _pesticideLevel,
+                    currentStage: _currentStage,
+                    totalStages: _totalStages,
+                    onStageAdvance: _advanceStage,
+                    currentMonth: _currentMonth,
+                    monthNumber: _monthNumber,
+                    division: widget.division,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

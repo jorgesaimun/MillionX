@@ -39,7 +39,12 @@ class SeedPanelWidget extends StatelessWidget {
                 children: [
                   // Stage progress indicator (dynamic count)
                   Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.fromLTRB(
+                      12.0,
+                      12.0,
+                      12.0,
+                      0.0,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(totalStages, (index) {
@@ -80,7 +85,7 @@ class SeedPanelWidget extends StatelessWidget {
               ),
             ),
             // Title banner
-            Positioned(top: -20, child: _buildSeedBanner()),
+            Positioned(top: 10, child: _buildSeedBanner()),
           ],
         );
       },
