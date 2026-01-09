@@ -237,41 +237,43 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   /// Main game screen layout
   Widget _buildGameScreen() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Adjust layout based on screen width
-        bool isWideScreen = constraints.maxWidth > 600;
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          // Adjust layout based on screen width
+          bool isWideScreen = constraints.maxWidth > 600;
 
-        return Row(
-          children: [
-            Expanded(
-              flex: isWideScreen ? 1 : 2,
-              child: EarthGlobeSection(
-                globeController: _globeController,
-                onNextPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => ModeSelectionScreen(
-                            location: _locationName ?? 'Unknown Location',
-                          ),
-                    ),
-                  );
-                },
+          return Row(
+            children: [
+              Expanded(
+                flex: isWideScreen ? 1 : 2,
+                child: EarthGlobeSection(
+                  globeController: _globeController,
+                  onNextPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => ModeSelectionScreen(
+                              location: _locationName ?? 'Unknown Location',
+                            ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            Expanded(
-              flex: isWideScreen ? 1 : 2,
-              child: LocationDataSection(
-                locationName: _locationName,
-                mockData: _mockData,
-                dataController: _dataController,
+              Expanded(
+                flex: isWideScreen ? 1 : 2,
+                child: LocationDataSection(
+                  locationName: _locationName,
+                  mockData: _mockData,
+                  dataController: _dataController,
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }
