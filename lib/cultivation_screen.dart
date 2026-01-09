@@ -693,53 +693,56 @@ class _CultivationScreenState extends State<CultivationScreen> {
   }
 
   Widget _buildCenterColumn(BoxConstraints constraints) {
-    print('🏗️ Building center column with constraints: $constraints');
     return Expanded(
-      flex: 4,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Seed panel - flexible to use available space
-          Expanded(
-            flex: 6, // Give more space to seed panel
-            child: LayoutBuilder(
-              builder: (context, localConstraints) {
-                return SizedBox(
-                  height: localConstraints.maxHeight,
-                  child: SeedPanelWidget(
-                    stageLabel: _getCurrentStageLabel(),
-                    currentStage: _currentStage,
-                    totalStages: _totalStages,
-                    cropFolderName: _normalizeCropFolderName(currentCrop.name),
-                  ),
-                );
-              },
+      flex: 6,
+      child: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Seed panel - flexible to use available space
+            Expanded(
+              flex: 6, // Give more space to seed panel
+              child: LayoutBuilder(
+                builder: (context, localConstraints) {
+                  return SizedBox(
+                    height: localConstraints.maxHeight,
+                    child: SeedPanelWidget(
+                      stageLabel: _getCurrentStageLabel(),
+                      currentStage: _currentStage,
+                      totalStages: _totalStages,
+                      cropFolderName: _normalizeCropFolderName(
+                        currentCrop.name,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          // Action buttons - flexible but constrained
-          Expanded(
-            flex: 4, // Give less space to action buttons
-            child: LayoutBuilder(
-              builder: (context, localConstraints) {
-                return SizedBox(
-                  height: localConstraints.maxHeight,
-                  child: ActionButtonsWidget(
-                    irrigationLevel: _irrigationLevel,
-                    fertilizerLevel: _fertilizerLevel,
-                    pesticideLevel: _pesticideLevel,
-                    onIrrigationChanged:
-                        (value) => setState(() => _irrigationLevel = value),
-                    onFertilizerChanged:
-                        (value) => setState(() => _fertilizerLevel = value),
-                    onPesticideChanged:
-                        (value) => setState(() => _pesticideLevel = value),
-                  ),
-                );
-              },
+            const SizedBox(height: 8),
+            // Action buttons - flexible but constrained
+            Expanded(
+              flex: 4, // Give less space to action buttons
+              child: LayoutBuilder(
+                builder: (context, localConstraints) {
+                  return SizedBox(
+                    height: localConstraints.maxHeight,
+                    child: ActionButtonsWidget(
+                      irrigationLevel: _irrigationLevel,
+                      fertilizerLevel: _fertilizerLevel,
+                      pesticideLevel: _pesticideLevel,
+                      onIrrigationChanged:
+                          (value) => setState(() => _irrigationLevel = value),
+                      onFertilizerChanged:
+                          (value) => setState(() => _fertilizerLevel = value),
+                      onPesticideChanged:
+                          (value) => setState(() => _pesticideLevel = value),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -747,38 +750,40 @@ class _CultivationScreenState extends State<CultivationScreen> {
   Widget _buildRightColumn(BoxConstraints constraints) {
     return Expanded(
       flex: 2,
-      child: SizedBox(
-        height: constraints.maxHeight - 24, // Account for padding
-        child: Column(
-          children: [
-            // Environmental data - takes most space
-            Expanded(
-              flex: 3,
-              child: EnvironmentalDataWidget(
-                stock: _stock,
-                smap: _smap,
-                ndvi: _ndvi,
+      child: SafeArea(
+        child: SizedBox(
+          height: constraints.maxHeight - 24, // Account for padding
+          child: Column(
+            children: [
+              // Environmental data - takes most space
+              Expanded(
+                flex: 3,
+                child: EnvironmentalDataWidget(
+                  stock: _stock,
+                  smap: _smap,
+                  ndvi: _ndvi,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            // Done button - fixed height
-            SizedBox(
-              height: constraints.maxHeight * 0.15, // 15% of screen height
-              child: DoneButtonWidget(
-                cropName: currentCrop.name,
-                selectedCrop: currentCrop,
-                irrigationLevel: _irrigationLevel,
-                fertilizerLevel: _fertilizerLevel,
-                pesticideLevel: _pesticideLevel,
-                currentStage: _currentStage,
-                totalStages: _totalStages,
-                onStageAdvance: _advanceStage,
-                currentMonth: _currentMonth,
-                monthNumber: _monthNumber,
-                division: widget.division,
+              const SizedBox(height: 10),
+              // Done button - fixed height
+              SizedBox(
+                height: constraints.maxHeight * 0.15, // 15% of screen height
+                child: DoneButtonWidget(
+                  cropName: currentCrop.name,
+                  selectedCrop: currentCrop,
+                  irrigationLevel: _irrigationLevel,
+                  fertilizerLevel: _fertilizerLevel,
+                  pesticideLevel: _pesticideLevel,
+                  currentStage: _currentStage,
+                  totalStages: _totalStages,
+                  onStageAdvance: _advanceStage,
+                  currentMonth: _currentMonth,
+                  monthNumber: _monthNumber,
+                  division: widget.division,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -80,7 +80,7 @@ class SeedPanelWidget extends StatelessWidget {
               ),
             ),
             // Title banner
-            Positioned(top: -10, child: _buildSeedBanner()),
+            Positioned(top: -20, child: _buildSeedBanner()),
           ],
         );
       },

@@ -47,7 +47,7 @@ class CalendarWidget extends StatelessWidget {
           ),
         ),
         // Month banner on top right
-        Positioned(top: -15, right: 10, child: _buildMonthBanner()),
+        Positioned(top: -15, right: 20, child: _buildMonthBanner()),
       ],
     );
   }
